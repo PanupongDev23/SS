@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sumo & Sai ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Valentine Question Flow Overlay -->
+    <div id="question-overlay" class="question-overlay">
+        <div class="q-content">
+            <img id="q-gif-img" src="Gif/Ask.gif" alt="Valentine Gif" class="q-gif">
+            <p id="q-text-label" class="q-text">Will you be my valentine ?</p>
+            <div id="q-btn-group" class="q-btn-group">
+                <button id="q-yes-btn" class="q-btn q-btn-yes" onclick="handleYesClick()">Yes</button>
+                <button id="q-no-btn" class="q-btn q-btn-no" onclick="handleNoClick()"
+                    onmouseover="handleNoHover()">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Valentine Question Flow Script (inline to avoid external file issues) -->
+    <script>
+        // Skip overlay if already answered
+        if (sessionStorage.getItem('valentineAnswered')) {
+            document.getElementById('question-overlay').style.display = 'none';
+        }
+
+        var questionState = 0; // 0=ask, 1=no1, 2=no2, 3=final
+
+        var statesData = [
+            { gif: 'Gif/Ask.gif', text: 'Will you be my valentine ?' },
+            { gif: 'Gif/No.gif', text: 'Will you be my valentine  ??' },
+            { gif: 'Gif/No2.gif', text: 'Will you be my valentine hehe ?' },
+            { gif: 'Gif/Yes.gif', text: 'So cute !' }
+        ];
+
+        function goToState(idx) {
+            questionState = idx;
+            var state = statesData[idx];
+            var content = document.querySelector('.q-content');
+
+            // Animate out
+            content.style.transition = 'transform 0.25s ease-in, opacity 0.25s ease-in';
+            content.style.transform = 'scale(0.8)';
+            content.style.opacity = '0';
+
+            setTimeout(function () {
+                // Update content
+                document.getElementById('q-gif-img').src = state.gif;
+                document.getElementById('q-text-label').innerText = state.text;
+
+                if (idx === 3) {
+                    // Final state: replace buttons with emoji
+                    document.getElementById('q-btn-group').innerHTML =
+                        '<button class="q-btn-emoji" onclick="closeOverlay()">🫣</button>';
+                } else {
+                    // Reset No button position
+                    var noBtn = document.getElementById('q-no-btn');
+                    if (noBtn) {
+                        noBtn.style.position = '';
+                        noBtn.style.left = '';
+                        noBtn.style.top = '';
+                    }
+                }
+
+                // Animate in with bounce
+                content.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease-out';
+                content.style.transform = 'scale(1)';
+                content.style.opacity = '1';
+            }, 280);
+        }
+
+        function handleYesClick() {
+            // Hide the runaway No button
+            var noBtn = document.getElementById('q-no-btn');
+            if (noBtn) noBtn.style.display = 'none';
+            goToState(3);
+        }
+
+        function handleNoClick() {
+            if (questionState === 2) {
+                // Move button instead of letting click through
+                moveNoButton();
+                return;
+            }
+            if (questionState === 0) {
+                goToState(1);
+            } else if (questionState === 1) {
+                goToState(2);
+            }
+        }
+
+        function handleNoHover() {
+            if (questionState >= 2) {
+                moveNoButton();
+            }
+        }
+
+        function moveNoButton() {
+            var noBtn = document.getElementById('q-no-btn');
+            if (!noBtn) return;
+
+            // Move button out of .q-content into overlay (so transform on card doesn't break fixed positioning)
+            var overlay = document.getElementById('question-overlay');
+            if (noBtn.parentElement !== overlay) {
+                overlay.appendChild(noBtn);
+            }
+
+            var btnW = noBtn.offsetWidth || 80;
+            var btnH = noBtn.offsetHeight || 40;
+            var safeW = document.documentElement.clientWidth;
+            var safeH = document.documentElement.clientHeight;
+            var padding = 50;
+            var x = padding + Math.floor(Math.random() * (safeW - btnW - padding * 2));
+            var y = padding + Math.floor(Math.random() * (safeH - btnH - padding * 2));
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+            noBtn.style.zIndex = '99999';
+            noBtn.style.transition = 'left 0.15s ease, top 0.15s ease';
+        }
+
+        function closeOverlay() {
+            sessionStorage.setItem('valentineAnswered', 'true');
+            var overlay = document.getElementById('question-overlay');
+            overlay.style.opacity = '0';
+            setTimeout(function () {
+                overlay.style.display = 'none';
+            }, 500);
+        }
+    </script>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <header class="hero">
+            <span class="sticker">🧸</span>
+            <h1 class="main-title">Happy Valentine's</h1>
+            <h2 class="sub-title">Counting our special moments since Dec 10, 2023</h2>
+        </header>
+
+        <!-- Timer Section -->
+        <section class="timer-section">
+            <h3 style="margin-bottom: 1.5rem; font-size: 1.5rem; color: #ff9ff3;">We've been together for...</h3>
+            <div id="relationship-timer" class="timer-wrap">
+                <!-- Javascript will inject timer here -->
+            </div>
+
+            <div style="margin-top: 3rem; position: relative;">
+                <span
+                    style="font-size: 3rem; position: absolute; top: -40px; right: 20px; transform: rotate(15deg);">💌</span>
+                <p style="margin-bottom: 2rem; font-weight: 600; font-size: 1.2rem; color: #576574;">
+                    "Every day with you is my favorite day." <br>
+                    Rak na kub! 🤟
+                </p>
+                <a href="gallery.html" class="btn-cute">See Our Photos 📸</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>

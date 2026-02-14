@@ -1,0 +1,549 @@
+:root {
+    --primary-color: #ff6b6b;
+    /* Soft Red/Coral */
+    --secondary-color: #ff9ff3;
+    /* Pastel Pink */
+    --accent-color: #feca57;
+    /* Warm Yellow */
+    --bg-color: #fff2f2;
+    /* Very Light Pink Background */
+    --text-color: #576574;
+    /* Soft Gray */
+    --card-bg: #ffffff;
+    --shadow-soft: 0 10px 25px rgba(255, 107, 107, 0.15);
+    --border-radius: 20px;
+    --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bouncy transition */
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Quicksand:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background-color: var(--bg-color);
+    background-image:
+        radial-gradient(var(--secondary-color) 1px, transparent 1px),
+        radial-gradient(var(--secondary-color) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    /* Polka dot pattern */
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Typography */
+h1,
+h2,
+h3 {
+    font-family: 'Fredoka', sans-serif;
+    color: var(--primary-color);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Common Components */
+.btn-cute {
+    display: inline-block;
+    padding: 12px 40px;
+    background: var(--primary-color);
+    color: white;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    box-shadow: 0 8px 0 #ee5253;
+    /* 3D effect */
+    transition: var(--transition);
+    cursor: pointer;
+    margin-top: 1.5rem;
+    border: none;
+    position: relative;
+    top: 0;
+}
+
+.btn-cute:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 0 #ee5253;
+}
+
+.btn-cute:active {
+    top: 5px;
+    box-shadow: 0 3px 0 #ee5253;
+    transform: translateY(0);
+}
+
+/* Layout */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+/* Hero Section */
+.hero {
+    margin-bottom: 3rem;
+    animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sticker {
+    font-size: 4rem;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+    margin-bottom: 1rem;
+}
+
+.main-title {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.05);
+}
+
+.sub-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #8395a7;
+    background: white;
+    padding: 5px 20px;
+    border-radius: 50px;
+    display: inline-block;
+    box-shadow: var(--shadow-soft);
+}
+
+/* Timer Section */
+.timer-section {
+    width: 100%;
+    margin-bottom: 4rem;
+}
+
+.timer-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.timer-box {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 25px;
+    min-width: 110px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    border: 4px solid white;
+    transition: var(--transition);
+}
+
+.timer-box:hover {
+    transform: rotate(-3deg) scale(1.05);
+    border-color: var(--secondary-color);
+}
+
+.timer-box:nth-child(even):hover {
+    transform: rotate(3deg) scale(1.05);
+}
+
+.timer-box span:first-child {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 2.5rem;
+    display: block;
+    color: var(--primary-color);
+    line-height: 1.2;
+}
+
+.timer-box .label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #a4b0be;
+    letter-spacing: 1px;
+}
+
+/* Gallery Page Styles */
+.gallery-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-top: 2rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.gallery-item {
+    background: white;
+    padding: 15px;
+    padding-bottom: 50px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    transform: rotate(0deg);
+}
+
+/* Random rotation effect for cute polaroid look */
+.gallery-item:nth-child(3n+1) {
+    transform: rotate(-2deg);
+}
+
+.gallery-item:nth-child(3n+2) {
+    transform: rotate(1deg);
+}
+
+.gallery-item:nth-child(3n+3) {
+    transform: rotate(2deg);
+}
+
+.gallery-item:hover {
+    transform: scale(1.05) rotate(0deg) !important;
+    z-index: 10;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Tape effect on top */
+.gallery-item::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.4);
+    border-left: 1px dotted rgba(0, 0, 0, 0.1);
+    border-right: 1px dotted rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    z-index: 1;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+    background-color: #eee;
+}
+
+/* Coming Soon Item */
+.gallery-item.coming-soon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f9fa;
+    border: 3px dashed #cbd5e0;
+    box-shadow: none;
+    cursor: default;
+    min-height: 350px;
+    /* Match image height */
+    text-align: center;
+    color: #a0aec0;
+    font-weight: 700;
+    font-size: 1.5rem;
+    padding: 20px;
+}
+
+.gallery-item.coming-soon:hover {
+    transform: rotate(0deg) scale(1.02) !important;
+    box-shadow: none;
+}
+
+.gallery-item.coming-soon::before {
+    display: none;
+    /* Hide tape effect */
+}
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 242, 242, 0.95);
+    /* Pinkish overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition);
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.lightbox-content {
+    max-height: 85vh;
+    max-width: 90vw;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    border: 8px solid white;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    background: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-nav:hover {
+    transform: translateY(-50%) scale(1.1);
+    background: var(--primary-color);
+    color: white;
+}
+
+.prev-btn {
+    left: 30px;
+}
+
+.next-btn {
+    right: 30px;
+}
+
+.close-lightbox {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    font-size: 2.5rem;
+    color: var(--text-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close-lightbox:hover {
+    color: var(--primary-color);
+    transform: rotate(90deg);
+}
+
+/* Animations */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    80% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .main-title {
+        font-size: 2.5rem;
+    }
+
+    .timer-wrap {
+        gap: 10px;
+    }
+
+    .timer-box {
+        min-width: 70px;
+        padding: 10px;
+    }
+
+    .timer-box span:first-child {
+        font-size: 1.8rem;
+    }
+
+    .timer-box .label {
+        font-size: 0.7rem;
+    }
+
+    .prev-btn {
+        left: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+
+    .next-btn {
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+}
+
+/* Question Overlay Styles */
+.question-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffd1dc, #ffe4ec, #fff0f5);
+    /* Soft pastel pink gradient */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    /* Top most */
+    text-align: center;
+    transition: opacity 0.5s ease;
+}
+
+.question-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.q-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    width: 400px;
+}
+
+.q-gif {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.q-text {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.q-btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    /* For the moving button context */
+    min-height: 60px;
+    /* Space for buttons */
+}
+
+.q-btn {
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.q-btn-yes {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 0 #ee5253;
+}
+
+.q-btn-yes:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #ee5253;
+}
+
+.q-btn-yes:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 0 #ee5253;
+}
+
+.q-btn-no {
+    background-color: #bdc3c7;
+    color: white;
+    box-shadow: 0 4px 0 #95a5a6;
+    position: relative;
+    /* Needed for absolute movement context if we change it */
+}
+
+.q-btn-no:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #95a5a6;
+}
+
+/* For the random moving "No" button, we might need absolute positioning relative to the screen or container */
+.q-btn-no.moving {
+    position: absolute;
+    transition: all 0.2s ease;
+    /* Smooth movement */
+}
+
+.q-btn-emoji {
+    font-size: 2rem;
+    background: transparent;
+    border: 2px solid var(--secondary-color);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+}
+
+.q-btn-emoji:hover {
+    background: var(--secondary-color);
+    color: white;
+    transform: rotate(10deg);
+}
